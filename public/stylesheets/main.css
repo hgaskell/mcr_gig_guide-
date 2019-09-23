@@ -1,0 +1,71 @@
+body {
+	font-family: 'Roboto Mono', monospace;
+	background:black;
+}
+
+
+#show {
+	color:white;
+}
+
+#heading {
+    letter-spacing: 25px;
+	background:#FEC107;
+	color:#212529;
+	margin-bottom:0
+}
+
+#paragraph {
+	background:#FEC107;
+	color:#212529;
+}
+
+#resize {
+	text-align:center;
+}
+
+#resize img{
+    height:500px;
+    width:auto;
+    max-width:100%;
+}
+
+#map {
+	height:300px;
+	width:100%;
+}
+
+.jumbo {
+	background-image: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)), url("https://images.unsplash.com/photo-1510416096143-b3f355567e3d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80");
+	background-size: contain;
+	color:white;
+}
+
+.table {
+border: #F8D60D solid 4px;
+background:black;
+color:white;
+}
+
+.icon {
+ color:#F8D60D;
+}
+
+.center {
+	padding-top: 30vh;
+}
+
+.input100 {
+  font-size: 15px;
+  background: #F8D60D;
+  height: 50px;
+  border-radius: 15px;
+  border-color:black;
+  padding: 0 30px 0 53px;
+}
+
+input:focus {outline:0;}
+
+::placeholder {
+    color: black; 
+}

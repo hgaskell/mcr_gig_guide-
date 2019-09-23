@@ -1,0 +1,100 @@
+<% include ../partials/header %>
+
+<div class="container">
+	<div class="row" id="show">
+		<div class="col-12 col-sm-4 mb-1">
+			<div id="resize">
+				<img id="resize" src="<%=gig.image%>">
+			</div>
+			<% if(currentUser && gig.author.id.equals(currentUser._id)){ %>
+			<div class="btn-group mt-2">
+				<a class="btn btn-outline-warning btn-sm mr-2" href="/gigs/<%= gig._id %>/edit">Edit</a>
+				<form action="/gigs/<%= gig._id %>?_method=DELETE" method="POST">
+					<button class="btn btn-outline-warning btn-sm">
+						Delete
+					</button>
+				</form>
+			</div>
+			<% } %>
+		</div>
+		<div class="col-12 col-sm-4">
+			<p>
+				<%=gig.event%> <span>@</span> <%=gig.venue%>
+			</p>
+			<p>
+				Date:<%= gig.date %>
+			</p>
+			<p>
+				Info:<%= gig.description %>
+			</p>
+			<p>
+				Price:£<%= gig.price %>
+			</p>
+				<a href="<%= gig.link %>" class="btn btn-outline-warning btn-sm mb-2">Buy Tickets</a>
+			<p>
+				<em>Submitted By <%= gig.author.username %></em>
+			</p>
+		</div>	
+		<div class="col-12 col-sm-4">
+			<div id="map"></div>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="card mt-2 mb-2 table">
+		<div class="card-body">
+			<h3 class="card-title">
+				Comments
+				<span>
+				<a class="card-subtitle btn btn-outline-warning btn-sm m-1" href="/gigs/<%= gig._id %>/comments/new">Add New Comment</a>
+			</span>
+			</h3>
+			
+			<% gig.comments.forEach(function(comment){ %>
+			<p class="card-text">
+				<strong><%= comment.author.username %></strong> - <%= comment.text %>
+			<div class="btn-group mb-2">
+				<% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+				<form action="/gigs/<%= gig._id %>/comments/<%= comment._id %>/edit">
+					<input type="submit" class="btn btn-outline-warning btn-sm ml-2" value="Edit">
+				</form>
+				<form action="/gigs/<%= gig._id %>/comments/<%= comment._id %>?_method=DELETE" method=POST>
+					<input type="submit" class="btn btn-outline-warning btn-sm ml-2" value="Delete">
+				</form>
+				<% } %>
+				<% }) %>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+  function initMap() {
+    var lat = <%= gig.lat %>;
+    var lng = <%= gig.lng %>;
+    var center = {lat: lat, lng: lng };
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 16,
+        center: center,
+        scrollwheel: false
+    });
+    var contentString = `
+      <strong><%= gig.name %><br />
+      <%= gig.location %></strong>
+      <p><%= gig.description %></p>
+    `
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+    var marker = new google.maps.Marker({
+        position: center,
+        map: map
+    });
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
+  }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiCY3tggLoDXDZPrCEsuXwFY6n-COCAWc&callback=initMap"></script>	
+<% include ../partials/footer %>

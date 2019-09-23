@@ -1,0 +1,31 @@
+<% include ../partials/header %>
+
+<div class="container-fluid">
+    <header class="jumbotron mt-3 jumbo">
+        <div class="container-fluid text-center">
+            <h1 id="heading"><strong>MCR Gig Guide</strong></h1>
+            <p id="paragraph"><strong>Welcome to MCR Gig Guide. A place to find out who's playing next in Manchester. Sign up to add your own gigs for people to discover.</strong></p>
+            <p>
+                <a class="btn btn-lg btn-warning border border-dark" href="/gigs/new">Tell us what's going on</a>
+            </p>
+        </div>
+    </header>
+    <div class="row text-center d-flex flex-wrap">
+        <% gigs.forEach(function(gigs){ %>
+		<div class="col-md-3 col-sm-6">
+			<div class="card item active mb-2 table" id="resize">
+				<img src="<%= gigs.image %>">
+				<div class="card-title">
+					<h4 class="pt-2"><%= gigs.event %></h4>    
+				</div>
+				<p>
+					<a href="<%= gigs.link %>" class="btn btn-outline-warning">Buy Tickets</a>
+					<a href="/gigs/<%= gigs._id %>" class="btn btn-outline-warning">More Info</a>
+				</p>
+			</div>
+		</div>
+        <% }); %>
+    </div>
+</div>
+
+<% include ../partials/footer %>
